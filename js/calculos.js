@@ -1,13 +1,8 @@
 $('#calcular').click(function () {
-  var nome = parseFloat($('#txtnome').val())
   var idade = parseFloat($('#txtidade').val())
   var salariobruto = parseFloat($('#txtsalariobruto').val())
   var dependentes = parseFloat($('#txtdependentes').val())
-
-  if (isNaN(valor) || isNaN(desconto) || isNaN(multa)) {
-    alert('Por favor, insira números válidos.')
-    return
-  }
+  var nome = $('#txtnome').val()
 
   var bonusidade = 0;
 
@@ -20,70 +15,32 @@ $('#calcular').click(function () {
   var inss = salariobruto * 0.08;
   var vt = salariobruto * 0.05;
 
-  var bonusdependentes = (dependentes * 50) + salariobruto
+  var bonusdependentes = dependentes * 50;
 
   var salarioliquido = salariobruto - inss - vt + bonusidade + bonusdependentes;
 
-  var moeda = final.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 2,
-  })
+  $('#alertnome')
+    .text('Nome do Funcionário: ' + nome)
+    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#000000' })
 
-  $('#txtresultado')
-    .text('Valor final: ' + moeda)
-    .css({ 'font-weight': 'bold', 'font-size': '18pt', color: '#0000FF' })
-    .fadeIn(1000)
+  $('#alertdependentes')
+    .text('Número de dependentes: ' + dependentes)
+    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#a5008f' })
 
-  if (final > 5) {
-    alert('Valor final maior que 5')
-    $('#txtresultado').css('color', '#FF0000')
-  } else {
-    $('#txtresultado').css('color', '#00FF00')
-    alert('Valor final menor ou igual a 5')
-  }
+  $('#alertsalariob')
+    .text('Salário Bruto: R$' + salariobruto)
+    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#006703' })
 
-  //if ternário - decisão em uma linha
-  var mostrar = 'da média'
-  mostrar = final > 5 ? 'acima ' + mostrar : 'abaixo ' + mostrar
-  alert('O valor final está ' + mostrar)
+  $('#alertinss')
+    .text('Valor INSS: R$' + inss)
+    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#000000' })
 
-  //switch case
-  switch (true) {
-    case final > 10:
-      alert('Valor final maior que 10')
-      break
-    case final > 5:
-      alert('Valor final maior que 5')
-      break
-    default:
-      alert('Valor final menor ou igual a 5')
-  }
+  $('#alertvt')
+    .text('Valor Vale Transporte: R$' + vt)
+    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#a5008f' })
 
-  var msg = ''
-  switch (parseInt(final) % 2) {
-    case 0:
-      alert('Valor final é par')
-      msg = 'par'
-      break
-    case 1:
-      alert('Valor final é ímpar')
-      msg = 'ímpar'
-      break
-    default:
-      alert('Valor final não é um número')
-  }
-  $('#txtmsg')
-    .text('O valor é ' + msg)
-    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#0000FF' })
+  $('#alertsalariol')
+    .text('Salário Líquido: R$' + salarioliquido)
+    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#006703' })
 
-  //fatorial
-  var fatorial = 1
-  for (var i = 1; i <= valor; i++) {
-    fatorial *= i
-  }
-
-  $('#txtfatorial')
-    .text('Fatorial de ' + valor + ' é: ' + fatorial)
-    .css({ 'font-weight': 'bold', 'font-size': '14pt', color: '#0000FF' })
-})
+});
